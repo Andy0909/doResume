@@ -5,8 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Do Resume</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     </head>
     <style>
     .btn-circle.btn-lg {
@@ -19,23 +18,75 @@
         border-radius: 15px;
     }
     .form_style{
-        width: 1000px;
+        width: 800px;
         height: 30px;
         margin: 0 auto;
     }
     </style>
     <body style="background-color: rgb(227, 229, 245)">
-        <form class="row g-3 form_style">
-            <div class="col-md-2">
-                <label class="form-label">姓名：</label>
-                <input type="textarea" class="form-control" placeholder="魏廷晏">
-            </div><br>
+        <form class="row g-3 form_style" action="/user_data" method="POST">
+            {{ csrf_field() }}
+            @if(isset($user_data['name']))
+                <div class="form-group">
+                    <label class="form-label">Name : </label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{$user_data['name']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <label class="form-label">Name : </label>
+                    <input type="text" class="form-control" name="name" id="name">
+                </div>
+            @endif
 
-            <div class="col-md-8">
-                <input type="hidden" class="form-control" placeholder="魏廷晏">
-            </div><br>
+            @if(isset($user_data['linkedin']))
+                <div class="form-group">
+                    <img src="{{asset('linkedin.png')}}" width="20">
+                    <input name="linkedin" id="linkedin" type="text" class="form-control" placeholder="" value="{{$user_data['linkedin']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <img src="{{asset('linkedin.png')}}" width="20">
+                    <input name="linkedin" id="linkedin" type="text" class="form-control" placeholder="">
+                </div>
+            @endif
 
-            <div class="col-md-3">
+            @if(isset($user_data['github']))
+                <div class="form-group">
+                    <img src="{{asset('github.png')}}" width="20">
+                    <input name="github" id="github" type="text" class="form-control" value="{{$user_data['github']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <img src="{{asset('github.png')}}" width="20">
+                    <input name="github" id="github" type="text" class="form-control">
+                </div>
+            @endif
+
+            @if(isset($user_data['mail']))
+                <div class="form-group">
+                    <img src="{{asset('mail.png')}}" width="20">
+                    <input name="mail" id="mail" type="text" class="form-control" placeholder="andy001018@gmail.com" value="{{$user_data['mail']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <img src="{{asset('mail.png')}}" width="20">
+                    <input name="mail" id="mail" type="text" class="form-control" placeholder="andy001018@gmail.com">
+                </div>
+            @endif
+
+            @if(isset($user_data['phone']))
+                <div class="form-group">
+                    <img src="{{asset('phone.jpeg')}}" width="20">
+                    <input name="phone" id="phone" type="text" class="form-control" placeholder="0988756015" value="{{$user_data['phone']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <img src="{{asset('phone.jpeg')}}" width="20">
+                    <input name="phone" id="phone" type="text" class="form-control" placeholder="0988756015">
+                </div>
+            @endif
+
+            {{--<div class="col-md-3">
                 <img src="{{asset('linkedin.png')}}" width="20">
                 <input type="textarea" class="form-control" placeholder="">
             </div><br>
@@ -53,60 +104,95 @@
             <div class="col-md-3">
                 <img src="{{asset('phone.jpeg')}}" width="20">
                 <input type="textarea" class="form-control" placeholder="0988756015">
-            </div><br>
+            </div><br>--}}
 
-            <div class="col-md-12">
-                <label class="form-label">學歷：</label>
-                <input type="textarea" class="form-control" placeholder="彰化師範大學資工所">
-            </div><br>
+            @if(isset($user_data['education']))
+                <div class="form-group">
+                    <label class="form-label">Education :</label>
+                    <input name="education" id="education" type="text" class="form-control" value="{{$user_data['education']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <label class="form-label">Education :</label>
+                    <input name="education" id="education" type="text" class="form-control">
+                </div>
+            @endif
 
-            <div class="col-md-12">
-                <label class="form-label">工作經歷：</label>
-                    <input type="textarea" class="form-control" placeholder="集邦科技 PHP工程師"><br>
-                    <div id="experience">
-                        <button id="add_experience" type="button" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i>+</button>
-                    </div>
-            </div><br>
+            @if(isset($user_data['work_experience']))
+                <div class="form-group">
+                    <label class="form-label">Work Experience :</label>
+                        <input name="work_experience" type="text" class="form-control" placeholder="集邦科技 PHP工程師" value="{{$user_data['work_experience']}}"><br>
+                        <div id="experience">
+                            <button id="add_experience" type="button" class="btn btn-info btn-circle btn-lg">+</button>
+                        </div>
+                </div>
+            @else
+                <div class="form-group">
+                    <label class="form-label">Work Experience :</label>
+                        <input name="work_experience" type="text" class="form-control" placeholder="集邦科技 PHP工程師"><br>
+                        <div id="experience">
+                            <button id="add_experience" type="button" class="btn btn-info btn-circle btn-lg">+</button>
+                        </div>
+                </div>
+            @endif
 
-            <div class="col-md-12">
-                <label>作品：</label>
-                    <input type="textarea" class="form-control" placeholder="Laravel socialite"><br>
-                    <div id="project">
-                        <button id="add_project" type="button" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i>+</button>
-                    </div>
-            </div><br>
+            @if(isset($user_data['projects']))
+                <div class="form-group">
+                    <label>Projects :</label>
+                        <input name="projects" type="text" class="form-control" placeholder="Laravel socialite" value="{{$user_data['projects']}}"><br>
+                        <div id="project">
+                            <button id="add_project" type="button" class="btn btn-info btn-circle btn-lg">+</button>
+                        </div>
+                </div>
+            @else
+                <div class="form-group">
+                    <label>Projects :</label>
+                        <input name="projects" type="text" class="form-control" placeholder="Laravel socialite"><br>
+                        <div id="project">
+                            <button id="add_project" type="button" class="btn btn-info btn-circle btn-lg">+</button>
+                        </div>
+                </div>
+            @endif
 
-            <div class="col-md-12">
-                <label>興趣：</label>
-                    <input type="textarea" class="form-control" placeholder="寫程式"><br>
-                    <div id="hobby">
-                        <button id="add_hobby" type="button" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i>+</button>
-                    </div>
-            </div><br>
-            <div align="center"><a href="/export" class="btn btn-secondary btn-sm mx-auto">匯出履歷</a>
+            @if(isset($user_data['hobbies']))
+                <div class="form-group">
+                    <label>Hobbies :</label>
+                        <input name="hobbies" type="text" class="form-control" placeholder="寫程式" value="{{$user_data['hobbies']}}"><br>
+                        <div id="hobby">
+                            <button id="add_hobby" type="button" class="btn btn-info btn-circle btn-lg">+</button>
+                        </div>
+                </div>
+            @else
+                <div class="form-group">
+                    <label>Hobbies :</label>
+                        <input name="hobbies" type="text" class="form-control" placeholder="寫程式"><br>
+                        <div id="hobby">
+                            <button id="add_hobby" type="button" class="btn btn-info btn-circle btn-lg">+</button>
+                        </div>
+                </div>
+            @endif
+
+            <div><input id="submit" type="submit" value="Export PDF"></div>
         </form><br>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script>
-            $('#export').click(function(){
-                alert('尚未完成');
-            });
             $('#add_experience').click(function(){
                 $('#experience').prepend(`
-                    <input type="textarea" class="form-control" placeholder=""><br>
+                    <input name="work_experience" type="textarea" class="form-control" placeholder=""><br>
                 `)
             })
             $('#add_project').click(function(){
                 $('#project').prepend(`
-                    <input type="textarea" class="form-control" placeholder=""><br>
+                    <input name="projects" type="textarea" class="form-control" placeholder=""><br>
                 `)
             })
             $('#add_hobby').click(function(){
                 $('#hobby').prepend(`
-                    <input type="textarea" class="form-control" placeholder=""><br>
+                    <input name="hobbies" type="textarea" class="form-control" placeholder=""><br>
                 `)
             })
+            
         </script>
     </body>
 </html>

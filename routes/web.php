@@ -19,4 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/export', [ExportController::class , 'export'])->name('export');
+Route::post('/user_data', [ExportController::class , 'user_data'])->name('user_data');
 
