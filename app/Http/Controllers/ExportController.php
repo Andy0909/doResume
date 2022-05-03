@@ -10,7 +10,7 @@ class ExportController extends Controller
     public function export()
     {
         $user_data = session()->get('user_data');
-        $pdf = PDF::loadView('resume',compact('user_data'));
+        $pdf = PDF::loadView('export',compact('user_data'));
         return $pdf->download('resume.pdf');
     }
 
