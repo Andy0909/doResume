@@ -1,0 +1,45 @@
+.body {
+    font-family: "NotoSansTC", serif;
+    background-color: black;
+}
+
+.container {
+    font-family: "NotoSansTC", serif;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group img {
+    margin-right: 10px;
+}
+
+.btn-circle.btn-lg {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.form_style {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-add {
+    margin-top: 10px;
+}
+
+.btn-remove {
+    margin-left: 10px;
+}

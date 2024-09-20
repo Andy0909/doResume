@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExportController;
-use PDF;
+use App\Http\Controllers\ResumeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +15,8 @@ use PDF;
 */
 
 Route::get('/', function () {
-    return view('resume');
+    return view('resumeForm');
 });
-Route::get('/export', [ExportController::class , 'export'])->name('export');
-Route::post('/user_data', [ExportController::class , 'user_data'])->name('user_data');
+
+Route::post('/resume/submit', [ResumeController::class, 'submitResume'])->name('resume.submit');
 
