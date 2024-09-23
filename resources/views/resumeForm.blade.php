@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label class="form-label">手機：</label>
                 <div class="input-group">
-                    <span class="input-group-addon"><img src="{{asset('phone.jpeg')}}" width="20"></span>
+                    <span class="input-group-addon"><img src="{{asset('phone.png')}}" width="20"></span>
                     <input name="phone" id="phone" type="text" class="form-control" maxlength="10" placeholder="請輸入您的手機" required>
                 </div>
             </div>
